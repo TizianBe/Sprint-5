@@ -1,6 +1,7 @@
 from camunda.external_task.external_task_worker import ExternalTaskWorker
-from nach_15_sekunden import Nach15Sekunden
-from nach_30_sekunden import Nach30Sekunden
+from nach_5_sekunden import Nach5Sekunden
+from nach_10_sekunden import Nach10Sekunden
+from bin_hier import binHier
 from threading import Thread
 
 default_config = {
@@ -41,8 +42,9 @@ class Worker:
 
 def main():
    worker: Worker = Worker()
-   worker.add_task(Nach15Sekunden())
-   worker.add_task(Nach30Sekunden())
+   worker.add_task(Nach5Sekunden())
+   worker.add_task(Nach10Sekunden())
+   worker.add_task(binHier())
    while True:
       continue
 

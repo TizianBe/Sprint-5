@@ -1,8 +1,9 @@
 from camunda.external_task.external_task import ExternalTask, TaskResult
-class Nach30Sekunden:
+
+class Nach10Sekunden:
     def __init__(self):
-        self.topic = "nach30Sekunden"
+        self.topic = "nach10Sekunden"
 
     def func(self, task: ExternalTask) -> TaskResult:
-        print("30 Sekunden")
+        print("10 Sekunden")
         return task.complete()
