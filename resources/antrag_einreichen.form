@@ -56,7 +56,7 @@
     }
   ],
   "type": "default",
-  "id": "Form_AntragGenehmigen",
+  "id": "Form_AntragEinreichen",
   "exporter": {
     "name": "Camunda Modeler",
     "version": "5.11.0"

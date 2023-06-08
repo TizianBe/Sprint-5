@@ -5,6 +5,7 @@ class Nach7Tagen:
         self.topic = "nach7Tagen"
 
     def func(self, task: ExternalTask) -> TaskResult:
-        x = task.get_extension_properties()
-        print(x)
+        name = task.get_variable("employee_name")
+        surname = task.get_variable("surname")
+        print(f"{name} {surname}")
         return task.complete()

@@ -1,0 +1,95 @@
+{
+  "components": [
+    {
+      "text": "**Peronsalnummer:**",
+      "type": "text",
+      "layout": {
+        "row": "Row_1sztciv",
+        "columns": null
+      },
+      "id": "Field_0ttpf03"
+    },
+    {
+      "text": "=employee_id",
+      "type": "text",
+      "layout": {
+        "row": "Row_0oyv5ae",
+        "columns": null
+      },
+      "id": "Field_0as649n"
+    },
+    {
+      "text": "**Name:**",
+      "type": "text",
+      "layout": {
+        "row": "Row_0z7z9zu",
+        "columns": null
+      },
+      "id": "Field_18vomag"
+    },
+    {
+      "text": "=employee_name",
+      "type": "text",
+      "layout": {
+        "row": "Row_1dqmevu",
+        "columns": null
+      },
+      "id": "Field_1l4nk0i"
+    },
+    {
+      "text": "**Nachname:**",
+      "type": "text",
+      "layout": {
+        "row": "Row_006cp0x",
+        "columns": null
+      },
+      "id": "Field_1fd3zce"
+    },
+    {
+      "text": "=employee_surname",
+      "type": "text",
+      "layout": {
+        "row": "Row_1obq1w5",
+        "columns": null
+      },
+      "id": "Field_0cwuxhv"
+    },
+    {
+      "text": "**Beschreibung:**",
+      "type": "text",
+      "layout": {
+        "row": "Row_1oh7iip",
+        "columns": null
+      },
+      "id": "Field_0o1ds4x"
+    },
+    {
+      "text": "=description",
+      "type": "text",
+      "layout": {
+        "row": "Row_0a2rsjq",
+        "columns": null
+      },
+      "id": "Field_0p82ur4"
+    },
+    {
+      "label": "Antrag genehmigen?",
+      "type": "checkbox",
+      "layout": {
+        "row": "Row_14zjjz5",
+        "columns": null
+      },
+      "id": "Field_0mg7fi8",
+      "key": "genehmigt"
+    }
+  ],
+  "type": "default",
+  "id": "Form_AntragPruefen",
+  "exporter": {
+    "name": "Camunda Modeler",
+    "version": "5.11.0"
+  },
+  "executionPlatform": "Camunda Platform",
+  "executionPlatformVersion": "7.19.0",
+  "schemaVersion": 8
+}
