@@ -73,6 +73,24 @@
       "id": "Field_0p82ur4"
     },
     {
+      "text": "**Betrag:**",
+      "type": "text",
+      "layout": {
+        "row": "Row_1y2ayge",
+        "columns": null
+      },
+      "id": "Field_1d8hd5h"
+    },
+    {
+      "text": "=cost",
+      "type": "text",
+      "layout": {
+        "row": "Row_1hhxcyl",
+        "columns": null
+      },
+      "id": "Field_05pphcv"
+    },
+    {
       "label": "Antrag genehmigen?",
       "type": "checkbox",
       "layout": {

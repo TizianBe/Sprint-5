@@ -53,6 +53,20 @@
         "required": true,
         "minLength": 5
       }
+    },
+    {
+      "label": "Betrag",
+      "type": "number",
+      "layout": {
+        "row": "Row_16wujzm",
+        "columns": null
+      },
+      "id": "Field_1er64tf",
+      "key": "cost",
+      "defaultValue": 0,
+      "validate": {
+        "required": true
+      }
     }
   ],
   "type": "default",
