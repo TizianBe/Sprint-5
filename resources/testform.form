@@ -1,0 +1,34 @@
+{
+  "components": [
+    {
+      "label": "Name",
+      "type": "textfield",
+      "layout": {
+        "row": "Row_05oa09l",
+        "columns": null
+      },
+      "id": "Field_0r2bndr",
+      "key": "name",
+      "disabled": false
+    },
+    {
+      "label": "Surname",
+      "type": "textfield",
+      "layout": {
+        "row": "Row_0q7tehp",
+        "columns": null
+      },
+      "id": "Field_1ivz8g0",
+      "key": "surname"
+    }
+  ],
+  "type": "default",
+  "id": "Form_testform",
+  "exporter": {
+    "name": "Camunda Modeler",
+    "version": "5.11.0"
+  },
+  "executionPlatform": "Camunda Platform",
+  "executionPlatformVersion": "7.19.0",
+  "schemaVersion": 8
+}
