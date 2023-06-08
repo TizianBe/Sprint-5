@@ -8,14 +8,14 @@ class SpesenkontoAnlegen:
 
     def func(self, task: ExternalTask) -> TaskResult:
         employee_id = task.get_variable("employee_id")
-        url = "http://localhost:3000/accounts"
+        url = "http://localhost:3000/accounts/"
+        headers = {"Content-Type": "application/json"}
         account = {
-            "id": int(employee_id),
             "employee_id": int(employee_id),
             "balance": 0
         }
 
-        data = requests.post(url=url, data=json.dumps(account))
+        data = requests.post(url=url, data=json.dumps(account), headers=headers)
         if data.status_code > 300:
             #TODO Logging
             return task.failure()

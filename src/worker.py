@@ -4,6 +4,9 @@ from spesenkonto_pruefen import SpesenkontoPruefen
 from spesenkonto_anlegen import SpesenkontoAnlegen
 from antraege_zaehlen import AntraegeZaehlen
 from betrag_ueberweisen import BetragUeberweisen
+from antrag_abgebrochen import AntragAbgebrochen
+from antrag_in_bearbeitung import AntragInBearbeitung
+from antrag_abgelehnt import AntragAbgelehnt
 from threading import Thread
 
 default_config = {
@@ -26,8 +29,8 @@ class Worker:
          topic = external_task.topic
          func = external_task.func
          self.external_tasks.append(external_task)
-         print(f"Added '{topic}' to list of external tasks")
          self.start_thread(topic=topic, func=func)
+         print(f"Started worker for external task '{topic}'")
          return True
       except Exception as err:
          print(err.message)
@@ -40,7 +43,6 @@ class Worker:
        thread.daemon = True
        self.threads.append(thread)
        thread.start()
-       print(f"Started thread for '{topic}'")
 
     def await_death(self):
        while True:
@@ -49,11 +51,19 @@ class Worker:
 def main():
    worker: Worker = Worker()
 
-   worker.add_task(Nach7Tagen())
-   worker.add_task(SpesenkontoPruefen())
-   worker.add_task(SpesenkontoAnlegen())
-   worker.add_task(AntraegeZaehlen())
-   worker.add_task(BetragUeberweisen())
+   tasks: list() = [
+      Nach7Tagen(),
+      SpesenkontoPruefen(),
+      SpesenkontoAnlegen(),
+      AntraegeZaehlen(),
+      BetragUeberweisen(),
+      AntragAbgebrochen(),
+      AntragAbgelehnt(),
+      AntragInBearbeitung()
+   ]
+
+   for task in tasks:
+      worker.add_task(task)
 
    worker.await_death()
 

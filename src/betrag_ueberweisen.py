@@ -13,29 +13,29 @@ class BetragUeberweisen:
         cost = task.get_variable("cost")
 
         expense_report = {
-            "employee_id": employee_id,
+            "employee_id": int(employee_id),
             "date": datetime.today().strftime("%d.%m.%Y"),
             "sum": cost,
             "description": description
         }
 
-        url_reports = "http://localhost:3000/expense_reports"
-        url_accounts = f"http://localhost:3000/accounts/{employee_id}"
+        url_reports = "http://localhost:3000/expense_reports/"
+        url_account = f"http://localhost:3000/accounts/{employee_id}"
+        headers = {"Content-Type": "application/json"}
 
-        data = requests.get(url=url_accounts)
+        data = requests.get(url=url_account)
         if data.status_code > 300:
             #TODO Logging
             return task.failure()
         
         account = data.json()
-        account[0]["balance"] += int(cost)
-        account = json.dumps(account).encode('utf8')
-        data = requests.put(url=url_accounts, data=account)
+        account["balance"] += int(cost)
+        data = requests.put(url=url_account, data=json.dumps(account), headers=headers)
         if data.status_code > 300:
             #TODO Logging
             return task.failure()
 
-        data = requests.post(url=url_reports, data=json.dumps(expense_report))
+        data = requests.post(url=url_reports, data=json.dumps(expense_report), headers=headers)
         if data.status_code > 300:
             #TODO Logging
             return task.failure()
