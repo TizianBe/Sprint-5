@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<definitions xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/" xmlns:dmndi="https://www.omg.org/spec/DMN/20191111/DMNDI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" xmlns:modeler="http://camunda.org/schema/modeler/1.0" xmlns:di="http://www.omg.org/spec/DMN/20180521/DI/" xmlns:camunda="http://camunda.org/schema/1.0/dmn" id="BearbeitungsstatusSetzen" name="Bearbeitungsstatus setzen" namespace="http://camunda.org/schema/1.0/dmn" exporter="Camunda Modeler" exporterVersion="5.11.0" modeler:executionPlatform="Camunda Platform" modeler:executionPlatformVersion="7.19.0">
-  <decision id="Decision_0qzndg1" name="Betrag prüfen">
+<definitions xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/" xmlns:dmndi="https://www.omg.org/spec/DMN/20191111/DMNDI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" xmlns:modeler="http://camunda.org/schema/modeler/1.0" xmlns:di="http://www.omg.org/spec/DMN/20180521/DI/" xmlns:camunda="http://camunda.org/schema/1.0/dmn" id="BearbeitungsstatusSetzen" name="BearbeitungsstatusSetzen" namespace="http://camunda.org/schema/1.0/dmn" exporter="Camunda Modeler" exporterVersion="5.11.0" modeler:executionPlatform="Camunda Platform" modeler:executionPlatformVersion="7.19.0">
+  <decision id="BetragPruefen" name="Betrag prüfen">
     <informationRequirement id="InformationRequirement_0he34y1">
       <requiredInput href="#cost" />
     </informationRequirement>
     <decisionTable id="DecisionTable_0ohpo2u">
       <input id="Input_1" label="Betrag" camunda:inputVariable="cost">
-        <inputExpression id="InputExpression_1" typeRef="integer" expressionLanguage="python">
+        <inputExpression id="InputExpression_1" typeRef="integer" expressionLanguage="feel">
           <text>cost</text>
         </inputExpression>
       </input>
@@ -33,15 +33,15 @@
       </rule>
     </decisionTable>
   </decision>
-  <decision id="Decision_0jp6ed8" name="Anzahl Spesenabrechnungen prüfen">
+  <decision id="AnzahlSpesenabrechnungenPruefen" name="Anzahl Spesenabrechnungen prüfen">
     <informationRequirement id="InformationRequirement_0uwxk7i">
-      <requiredDecision href="#Decision_0qzndg1" />
+      <requiredDecision href="#BetragPruefen" />
     </informationRequirement>
     <informationRequirement id="InformationRequirement_1jye1lh">
       <requiredInput href="#anzahl_antraege" />
     </informationRequirement>
-    <decisionTable id="DecisionTable_198d63q">
-      <input id="InputClause_0iuul65" label="Bearbeitungsstatus" camunda:inputVariable="bearbeitungsstatus">
+    <decisionTable id="DecisionTable_198d63q" hitPolicy="FIRST">
+      <input id="InputClause_0iuul65" label="Bearbeitungsstatus">
         <inputExpression id="LiteralExpression_1dan9v0" typeRef="string">
           <text>bearbeitungsstatus</text>
         </inputExpression>
@@ -49,8 +49,8 @@
           <text>"automatisch","manuell"</text>
         </inputValues>
       </input>
-      <input id="InputClause_1jr4m4g" label="Anzahl Spesenabrechnungen" camunda:inputVariable="anzahl_antraege">
-        <inputExpression id="LiteralExpression_0bn3zyt" typeRef="integer" expressionLanguage="python">
+      <input id="InputClause_1jr4m4g" label="Anzahl Spesenabrechnungen">
+        <inputExpression id="LiteralExpression_0bn3zyt" typeRef="integer" expressionLanguage="feel">
           <text>anzahl_antraege</text>
         </inputExpression>
       </input>
@@ -98,7 +98,7 @@
   <inputData id="anzahl_antraege" name="Anzahl Spesenabrechnungen" />
   <dmndi:DMNDI>
     <dmndi:DMNDiagram>
-      <dmndi:DMNShape dmnElementRef="Decision_0qzndg1">
+      <dmndi:DMNShape dmnElementRef="BetragPruefen">
         <dc:Bounds height="80" width="180" x="160" y="80" />
       </dmndi:DMNShape>
       <dmndi:DMNEdge id="DMNEdge_146wvfq" dmnElementRef="InformationRequirement_0uwxk7i">
@@ -106,7 +106,7 @@
         <di:waypoint x="250" y="220" />
         <di:waypoint x="250" y="240" />
       </dmndi:DMNEdge>
-      <dmndi:DMNShape id="DMNShape_16cvuvx" dmnElementRef="Decision_0jp6ed8">
+      <dmndi:DMNShape id="DMNShape_16cvuvx" dmnElementRef="AnzahlSpesenabrechnungenPruefen">
         <dc:Bounds height="80" width="180" x="160" y="240" />
       </dmndi:DMNShape>
       <dmndi:DMNShape id="DMNShape_149m7qi" dmnElementRef="cost">

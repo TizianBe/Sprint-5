@@ -8,7 +8,7 @@ class SpesenkontoPruefen:
     def func(self, task: ExternalTask) -> TaskResult:
         employee_id = task.get_variable("employee_id")
         account_exists = False
-        url = "http://localhost:3000/accounts"
+        url = f"http://localhost:3000/accounts?employee_id={employee_id}"
         
         data = requests.get(url=url)
         accounts = data.json()
@@ -16,9 +16,7 @@ class SpesenkontoPruefen:
             #TODO Logging
             return task.failure()
         
-        for account in accounts:
-            if account.employee_id == employee_id:
-                account_exists = True
-                break
+        if len(accounts) > 0:
+            account_exists = True
     
         return task.complete({"konto_exisitiert": account_exists})

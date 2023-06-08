@@ -14,7 +14,7 @@
   <bpmn:error id="Error_1l7j2yi" name="Error_ConnectionTerminated" />
   <bpmn:error id="Error_1q49ho5" name="Error_VerbindungAbgebrochen" />
   <bpmn:message id="Message_3ksp7k8" name="AntragÜbermitteln" />
-  <bpmn:process id="Process_0povw7n" isExecutable="false">
+  <bpmn:process id="Process_0povw7n" name="Kreditantrag" isExecutable="true" camunda:historyTimeToLive="30">
     <bpmn:startEvent id="Event_Start" name="Antrag eingereicht" camunda:formRef="Form_AntragEinreichen" camunda:formRefBinding="latest">
       <bpmn:outgoing>Flow_0cefwxm</bpmn:outgoing>
     </bpmn:startEvent>
@@ -38,7 +38,7 @@
     <bpmn:endEvent id="Event_1lgt9my">
       <bpmn:incoming>Flow_18k23q0</bpmn:incoming>
     </bpmn:endEvent>
-    <bpmn:serviceTask id="Activity_1ytlhby" name="Fehlerbericht erstellen">
+    <bpmn:serviceTask id="Activity_1ytlhby" name="Fehlerbericht erstellen" camunda:type="external" camunda:topic="fehlerberichtErstellen">
       <bpmn:incoming>Flow_0qjroc7</bpmn:incoming>
       <bpmn:incoming>Flow_0fwpdbt</bpmn:incoming>
       <bpmn:outgoing>Flow_18k23q0</bpmn:outgoing>
@@ -61,7 +61,7 @@
         <bpmn:timeDuration xsi:type="bpmn:tFormalExpression">PT4S</bpmn:timeDuration>
       </bpmn:timerEventDefinition>
     </bpmn:intermediateCatchEvent>
-    <bpmn:serviceTask id="Activity_164jbzr" name="Fehlerbericht erstellen">
+    <bpmn:serviceTask id="Activity_164jbzr" name="Fehlerbericht erstellen" camunda:type="external" camunda:topic="fehlerberichtErstellen">
       <bpmn:incoming>Flow_13y6z2k</bpmn:incoming>
       <bpmn:incoming>Flow_0rqhf0g</bpmn:incoming>
       <bpmn:outgoing>Flow_06z2b4r</bpmn:outgoing>
@@ -102,11 +102,11 @@
     <bpmn:endEvent id="Event_17e256e">
       <bpmn:incoming>Flow_005s040</bpmn:incoming>
     </bpmn:endEvent>
-    <bpmn:sendTask id="Activity_1w91o4y" name="Ablehnngsnachricht senden">
+    <bpmn:sendTask id="Activity_1w91o4y" name="Ablehnngsnachricht senden" camunda:type="external" camunda:topic="antragAbgelehnt">
       <bpmn:incoming>Flow_0h6bkg0</bpmn:incoming>
       <bpmn:outgoing>Flow_07w253c</bpmn:outgoing>
     </bpmn:sendTask>
-    <bpmn:sendTask id="Activity_02102hz" name="Antragsbearbeitung abgebrochen">
+    <bpmn:sendTask id="Activity_02102hz" name="Antragsbearbeitung abgebrochen" camunda:type="external" camunda:topic="antragAbgebrochen">
       <bpmn:incoming>Flow_07h7zxd</bpmn:incoming>
       <bpmn:outgoing>Flow_1ys1ubd</bpmn:outgoing>
     </bpmn:sendTask>
@@ -122,7 +122,7 @@
         <bpmn:timeDuration xsi:type="bpmn:tFormalExpression">PT4S</bpmn:timeDuration>
       </bpmn:timerEventDefinition>
     </bpmn:intermediateCatchEvent>
-    <bpmn:serviceTask id="Activity_115viun" name="Fehlerbericht erstellen">
+    <bpmn:serviceTask id="Activity_115viun" name="Fehlerbericht erstellen" camunda:type="external" camunda:topic="fehlerberichtErstellen">
       <bpmn:incoming>Flow_0p8oxk7</bpmn:incoming>
       <bpmn:incoming>Flow_0xf4f66</bpmn:incoming>
       <bpmn:outgoing>Flow_1592zcx</bpmn:outgoing>
@@ -133,7 +133,7 @@
     <bpmn:endEvent id="Event_15ywg12">
       <bpmn:incoming>Flow_1ys1ubd</bpmn:incoming>
     </bpmn:endEvent>
-    <bpmn:businessRuleTask id="Activity_0pnwqnn" name="Bearbeitungsstatus setzen" camunda:resultVariable="bearbeitungsstatus" camunda:decisionRef="BearbeitungsstatusSetzen" camunda:mapDecisionResult="singleEntry">
+    <bpmn:businessRuleTask id="Activity_0pnwqnn" name="Bearbeitungsstatus setzen" camunda:resultVariable="bearbeitungsstatus" camunda:decisionRef="AnzahlSpesenabrechnungenPruefen" camunda:mapDecisionResult="singleEntry">
       <bpmn:incoming>Flow_1n5jj67</bpmn:incoming>
       <bpmn:outgoing>Flow_17t39px</bpmn:outgoing>
     </bpmn:businessRuleTask>
@@ -146,7 +146,7 @@
       <bpmn:incoming>Flow_0c7r51j</bpmn:incoming>
       <bpmn:outgoing>Flow_1n5jj67</bpmn:outgoing>
     </bpmn:serviceTask>
-    <bpmn:sendTask id="Activity_0pjr68f" name="&#34;Antrag in Bearbeitung&#34; melden">
+    <bpmn:sendTask id="Activity_0pjr68f" name="&#34;Antrag in Bearbeitung&#34; melden" camunda:type="external" camunda:topic="antragInBearbeitung">
       <bpmn:incoming>Flow_0jce6xe</bpmn:incoming>
     </bpmn:sendTask>
     <bpmn:boundaryEvent id="Event_1l1tynf" name="Verbindung fehlgeschlagen" attachedToRef="Activity_SpesenkontoPruefen">
@@ -192,15 +192,23 @@
     <bpmn:sequenceFlow id="Flow_1c97at5" sourceRef="Event_1bh7o3a" targetRef="Activity_019h5h6" />
     <bpmn:sequenceFlow id="Flow_1miouqi" sourceRef="Activity_019h5h6" targetRef="Gateway_1mx3n9x" />
     <bpmn:sequenceFlow id="Flow_0kj5w5v" sourceRef="Event_1d9gg3l" targetRef="Gateway_1q0kanu" />
-    <bpmn:sequenceFlow id="Flow_1v4rwai" sourceRef="Gateway_1q0kanu" targetRef="Event_1bh7o3a" />
-    <bpmn:sequenceFlow id="Flow_0qjroc7" name="Zu viele Versuche (&#62;5)" sourceRef="Gateway_1q0kanu" targetRef="Activity_1ytlhby" />
+    <bpmn:sequenceFlow id="Flow_1v4rwai" sourceRef="Gateway_1q0kanu" targetRef="Event_1bh7o3a">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression"></bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="Flow_0qjroc7" name="Zu viele Versuche (&#62;5)" sourceRef="Gateway_1q0kanu" targetRef="Activity_1ytlhby">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression"></bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
     <bpmn:sequenceFlow id="Flow_18k23q0" sourceRef="Activity_1ytlhby" targetRef="Event_1lgt9my" />
     <bpmn:sequenceFlow id="Flow_0fwpdbt" sourceRef="Event_1ts2k1m" targetRef="Activity_1ytlhby" />
     <bpmn:sequenceFlow id="Flow_13npmdv" sourceRef="Event_1wfc6bl" targetRef="Activity_SpesenkontoPruefen" />
     <bpmn:sequenceFlow id="Flow_0i40zdx" sourceRef="Activity_SpesenkontoPruefen" targetRef="Gateway_0h2hj43" />
     <bpmn:sequenceFlow id="Flow_14733u0" sourceRef="Event_1l1tynf" targetRef="Gateway_04ta2bs" />
-    <bpmn:sequenceFlow id="Flow_1hsy3ez" sourceRef="Gateway_04ta2bs" targetRef="Event_1wfc6bl" />
-    <bpmn:sequenceFlow id="Flow_13y6z2k" name="Zu viele Versuche (&#62;5)" sourceRef="Gateway_04ta2bs" targetRef="Activity_164jbzr" />
+    <bpmn:sequenceFlow id="Flow_1hsy3ez" sourceRef="Gateway_04ta2bs" targetRef="Event_1wfc6bl">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression"></bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="Flow_13y6z2k" name="Zu viele Versuche (&#62;5)" sourceRef="Gateway_04ta2bs" targetRef="Activity_164jbzr">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression"></bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
     <bpmn:sequenceFlow id="Flow_0rqhf0g" sourceRef="Event_0wi9xzg" targetRef="Activity_164jbzr" />
     <bpmn:sequenceFlow id="Flow_06z2b4r" sourceRef="Activity_164jbzr" targetRef="Event_18wwcol" />
     <bpmn:sequenceFlow id="Flow_0llmd50" name="Ja" sourceRef="Gateway_0h2hj43" targetRef="Gateway_1mx3n9x">
@@ -227,9 +235,11 @@
     <bpmn:sequenceFlow id="Flow_07h7zxd" sourceRef="Event_0615e5z" targetRef="Activity_02102hz" />
     <bpmn:sequenceFlow id="Flow_1ys1ubd" sourceRef="Activity_02102hz" targetRef="Event_15ywg12" />
     <bpmn:sequenceFlow id="Flow_1r2rxba" sourceRef="Event_1va4p1j" targetRef="Gateway_14kdk8y" />
-    <bpmn:sequenceFlow id="Flow_1wxh44l" sourceRef="Gateway_14kdk8y" targetRef="Event_1lsh63a" />
-    <bpmn:sequenceFlow id="Flow_0p8oxk7" name="Zu viele Versuche (&#62;5)" sourceRef="Gateway_14kdk8y" targetRef="Activity_115viun">
+    <bpmn:sequenceFlow id="Flow_1wxh44l" sourceRef="Gateway_14kdk8y" targetRef="Event_1lsh63a">
       <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression"></bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="Flow_0p8oxk7" name="Zu viele Versuche (&#62;5)" sourceRef="Gateway_14kdk8y" targetRef="Activity_115viun">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression" />
     </bpmn:sequenceFlow>
     <bpmn:sequenceFlow id="Flow_0xf4f66" sourceRef="Event_19qh6jp" targetRef="Activity_115viun" />
     <bpmn:sequenceFlow id="Flow_1592zcx" sourceRef="Activity_115viun" targetRef="Event_0muwtvq" />
@@ -359,40 +369,10 @@
       <bpmndi:BPMNShape id="Activity_1w3j78c_di" bpmnElement="Activity_0pjr68f">
         <dc:Bounds x="1290" y="780" width="100" height="80" />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="BPMNShape_1qfiqck" bpmnElement="Event_1l1tynf">
-        <dc:Bounds x="412" y="602" width="36" height="36" />
+      <bpmndi:BPMNShape id="BPMNShape_1ejjf8g" bpmnElement="Event_19qh6jp">
+        <dc:Bounds x="1618" y="412" width="36" height="36" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="333" y="619" width="74" height="27" />
-        </bpmndi:BPMNLabel>
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="BPMNShape_09e7ijx" bpmnElement="Event_0wi9xzg">
-        <dc:Bounds x="512" y="602" width="36" height="36" />
-        <bpmndi:BPMNLabel>
-          <dc:Bounds x="514" y="645" width="33" height="14" />
-        </bpmndi:BPMNLabel>
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="BPMNShape_0kz0g1g" bpmnElement="Event_1d9gg3l">
-        <dc:Bounds x="878" y="682" width="36" height="36" />
-        <bpmndi:BPMNLabel>
-          <dc:Bounds x="808" y="709" width="74" height="27" />
-        </bpmndi:BPMNLabel>
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="BPMNShape_0riy43v" bpmnElement="Event_1ts2k1m">
-        <dc:Bounds x="978" y="682" width="36" height="36" />
-        <bpmndi:BPMNLabel>
-          <dc:Bounds x="980" y="728" width="33" height="14" />
-        </bpmndi:BPMNLabel>
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Event_0etrx0r_di" bpmnElement="Event_0vzlgrp">
-        <dc:Bounds x="1388" y="692" width="36" height="36" />
-        <bpmndi:BPMNLabel>
-          <dc:Bounds x="1379" y="728" width="33" height="14" />
-        </bpmndi:BPMNLabel>
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Event_16vy6cm_di" bpmnElement="Event_0615e5z">
-        <dc:Bounds x="1488" y="692" width="36" height="36" />
-        <bpmndi:BPMNLabel>
-          <dc:Bounds x="1455.5" y="728" width="39" height="14" />
+          <dc:Bounds x="1619" y="388" width="33" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="BPMNShape_1s0dkq2" bpmnElement="Event_1va4p1j">
@@ -401,10 +381,40 @@
           <dc:Bounds x="1438" y="416" width="74" height="27" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="BPMNShape_1ejjf8g" bpmnElement="Event_19qh6jp">
-        <dc:Bounds x="1618" y="412" width="36" height="36" />
+      <bpmndi:BPMNShape id="Event_16vy6cm_di" bpmnElement="Event_0615e5z">
+        <dc:Bounds x="1488" y="692" width="36" height="36" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="1619" y="388" width="33" height="14" />
+          <dc:Bounds x="1455.5" y="728" width="39" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_0etrx0r_di" bpmnElement="Event_0vzlgrp">
+        <dc:Bounds x="1388" y="692" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1379" y="728" width="33" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="BPMNShape_0riy43v" bpmnElement="Event_1ts2k1m">
+        <dc:Bounds x="978" y="682" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="980" y="728" width="33" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="BPMNShape_0kz0g1g" bpmnElement="Event_1d9gg3l">
+        <dc:Bounds x="878" y="682" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="808" y="709" width="74" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="BPMNShape_09e7ijx" bpmnElement="Event_0wi9xzg">
+        <dc:Bounds x="512" y="602" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="514" y="645" width="33" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="BPMNShape_1qfiqck" bpmnElement="Event_1l1tynf">
+        <dc:Bounds x="412" y="602" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="333" y="619" width="74" height="27" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="Flow_0cefwxm_di" bpmnElement="Flow_0cefwxm">
