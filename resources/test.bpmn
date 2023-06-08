@@ -4,7 +4,7 @@
     <bpmn:participant id="Participant_0i8mccx" processRef="Test_Prozess_2" />
   </bpmn:collaboration>
   <bpmn:process id="Test_Prozess_2" isExecutable="true" camunda:historyTimeToLive="300">
-    <bpmn:serviceTask id="Activity_12tsopc" name="Skript ausführen" camunda:type="external" camunda:topic="nach7Tagen">
+    <bpmn:serviceTask id="Activity_12tsopc" name="Skript ausführen" camunda:type="external" camunda:topic="spesenkontoPruefen">
       <bpmn:incoming>Flow_0djwkug</bpmn:incoming>
       <bpmn:outgoing>Flow_0hs8dps</bpmn:outgoing>
     </bpmn:serviceTask>

@@ -73,29 +73,29 @@
 		}
 	],
 	"accounts": [{
+			"id": 1,
 			"employee_id": 1,
-			"balance": 1464.97,
-			"annual_permited_requests": 2
+			"balance": 1464.97
 		},
 		{
+			"id":2,
 			"employee_id": 2,
-			"balance": 130.97,
-			"annual_permited_requests": 1
+			"balance": 130.97
 		},
 		{
+			"id": 3,
 			"employee_id": 4,
-			"balance": 23.00,
-			"annual_permited_requests": 1
+			"balance": 23.00
 		},
 		{
+			"id": 5,
 			"employee_id": 5,
-			"balance": 434.00,
-			"annual_permited_requests": 1
+			"balance": 434.00
 		},
 		{
+			"id": 7,
 			"employee_id": 7,
-			"balance": 630.97,
-			"annual_permited_requests": 1
+			"balance": 630.97
 		}			
 	]
 }
