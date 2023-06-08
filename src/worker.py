@@ -1,5 +1,6 @@
 from camunda.external_task.external_task_worker import ExternalTaskWorker
 from nach_7_tagen import Nach7Tagen
+from spesenkonto_pruefen import SpesenkontoPruefen
 from threading import Thread
 
 default_config = {
@@ -46,6 +47,7 @@ def main():
    worker: Worker = Worker()
 
    worker.add_task(Nach7Tagen())
+   worker.add_task(SpesenkontoPruefen())
 
    worker.await_death()
 

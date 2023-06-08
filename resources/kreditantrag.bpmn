@@ -53,7 +53,8 @@
       <bpmn:incoming>Flow_0fwpdbt</bpmn:incoming>
       <bpmn:outgoing>Flow_18k23q0</bpmn:outgoing>
     </bpmn:serviceTask>
-    <bpmn:serviceTask id="Activity_SpesenkontoPruefen" name="Spesenkonto prüfen">
+    <bpmn:serviceTask id="Activity_SpesenkontoPruefen" name="Spesenkonto prüfen" camunda:type="external" camunda:topic="spesenkontoPruefen">
+      <bpmn:extensionElements />
       <bpmn:incoming>Flow_13npmdv</bpmn:incoming>
       <bpmn:incoming>Flow_0cefwxm</bpmn:incoming>
       <bpmn:outgoing>Flow_0i40zdx</bpmn:outgoing>
