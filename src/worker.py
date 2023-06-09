@@ -7,6 +7,7 @@ from betrag_ueberweisen import BetragUeberweisen
 from antrag_abgebrochen import AntragAbgebrochen
 from antrag_in_bearbeitung import AntragInBearbeitung
 from antrag_abgelehnt import AntragAbgelehnt
+from verbindungsfehler_melden import VerbindungsfehlerMelden
 from threading import Thread
 
 default_config = {
@@ -59,7 +60,8 @@ def main():
       BetragUeberweisen(),
       AntragAbgebrochen(),
       AntragAbgelehnt(),
-      AntragInBearbeitung()
+      AntragInBearbeitung(),
+      VerbindungsfehlerMelden()
    ]
 
    for task in tasks:

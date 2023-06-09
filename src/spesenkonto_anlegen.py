@@ -1,6 +1,7 @@
 from camunda.external_task.external_task import ExternalTask, TaskResult
+from etc.db import DbConnector
+from etc.const import POST
 import json
-import requests
 
 class SpesenkontoAnlegen:
     def __init__(self):
@@ -14,10 +15,9 @@ class SpesenkontoAnlegen:
             "employee_id": int(employee_id),
             "balance": 0
         }
+        db_connector = DbConnector()
 
-        data = requests.post(url=url, data=json.dumps(account), headers=headers)
-        if data.status_code > 300:
-            #TODO Logging
-            return task.failure()
-    
+        result = db_connector.access_db(url=url, type=POST, task=task, data=json.dumps(account), headers=headers)
+        if type(result) is TaskResult:
+            return result
         return task.complete()

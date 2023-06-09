@@ -1,5 +1,6 @@
 from camunda.external_task.external_task import ExternalTask, TaskResult
-import requests
+from etc.db import DbConnector
+from etc.const import GET
 
 class SpesenkontoPruefen:
     def __init__(self):
@@ -9,13 +10,14 @@ class SpesenkontoPruefen:
         employee_id = task.get_variable("employee_id")
         account_exists = False
         url = f"http://localhost:3000/accounts?employee_id={employee_id}"
+        db_connector = DbConnector()
         
-        data = requests.get(url=url)
-        accounts = data.json()
-        if data.status_code > 300:
-            #TODO Logging
-            return task.failure()
-        
+
+        result = db_connector.access_db(url=url, type=GET, task=task)
+        if type(result) is TaskResult:
+            return result        
+        accounts = result.json()
+
         if len(accounts) > 0:
             account_exists = True
     
