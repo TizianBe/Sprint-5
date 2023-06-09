@@ -1,4 +1,5 @@
 from camunda.external_task.external_task import ExternalTask, TaskResult
+from datetime import datetime
 from etc.db import DbConnector
 from etc.const import GET
 
@@ -15,5 +16,11 @@ class AntraegeZaehlen:
         if type(result) is TaskResult:
             return result
         reports = result.json()
+        annual_count = 0
+        for report in reports:
+            report_year = datetime.strptime(report["date"], "%d.%m.%Y").strftime("%Y")
+            current_year = datetime.today().strftime("%Y")
+            if report_year == current_year:
+                annual_count += 1
     
-        return task.complete({"anzahl_antraege": len(reports)})
+        return task.complete({"anzahl_antraege": annual_count})
