@@ -8,8 +8,8 @@ class MitarbeiterPruefen:
 
     def func(self, task: ExternalTask) -> TaskResult:
         employee_id = task.get_variable("employee_id")
-        name = task.get_variable("name")
-        surname = task.get_variable("surname")
+        name = task.get_variable("employee_name")
+        surname = task.get_variable("employee_surname")
         employee_exists = False
         url = f"http://localhost:3000/employees/{employee_id}"
         db_connector = DbConnector()
@@ -20,7 +20,7 @@ class MitarbeiterPruefen:
             return result        
         employee = result.json()
 
-        if employee["prename"] == name and employee["surname"] == surname:
+        if employee["prename"].lower() == name.lower() and employee["surname"].lower() == surname.lower():
             employee_exists = True
     
         return task.complete({"mitarbeiter_exisitiert": employee_exists})

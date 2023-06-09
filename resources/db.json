@@ -127,13 +127,27 @@
       "sum": 120,
       "description": "Hotel",
       "id": 13
+    },
+    {
+      "employee_id": 1,
+      "date": "09.06.2023",
+      "sum": 40,
+      "description": "Abendessen",
+      "id": 14
+    },
+    {
+      "employee_id": 6,
+      "date": "09.06.2023",
+      "sum": 50,
+      "description": "Taxifahrt",
+      "id": 15
     }
   ],
   "accounts": [
     {
       "id": 1,
       "employee_id": 1,
-      "balance": 1806.97
+      "balance": 1846.97
     },
     {
       "id": 2,
@@ -159,6 +173,11 @@
       "employee_id": 3,
       "balance": 120,
       "id": 8
+    },
+    {
+      "employee_id": 6,
+      "balance": 50,
+      "id": 9
     }
   ]
 }

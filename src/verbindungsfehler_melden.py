@@ -5,5 +5,5 @@ class VerbindungsfehlerMelden:
         self.topic = "verbindungsfehlerMelden"
 
     def func(self, task: ExternalTask) -> TaskResult:
-        print("Verbindung zum Datenbank-Server ist fehlgeschlagen")
+        print("Verbindung zum Datenbank-Server ist fehlgeschlagen. Der Prozess wurde abgebrochen.")
         return task.complete()
