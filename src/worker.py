@@ -1,5 +1,6 @@
 from camunda.external_task.external_task_worker import ExternalTaskWorker
-from nach_7_tagen import Nach7Tagen
+from mitarbeiter_pruefen import MitarbeiterPruefen
+from hr_benachrichtigen import HrBenachrichtigen
 from spesenkonto_pruefen import SpesenkontoPruefen
 from spesenkonto_anlegen import SpesenkontoAnlegen
 from antraege_zaehlen import AntraegeZaehlen
@@ -46,6 +47,7 @@ class Worker:
        thread.start()
 
     def await_death(self):
+       print("\nAlle Worker sind bereit ihre Aufgaben entgegenzunehmen\n")
        while True:
           continue
 
@@ -53,7 +55,6 @@ def main():
    worker: Worker = Worker()
 
    tasks: list() = [
-      Nach7Tagen(),
       SpesenkontoPruefen(),
       SpesenkontoAnlegen(),
       AntraegeZaehlen(),
@@ -61,7 +62,9 @@ def main():
       AntragAbgebrochen(),
       AntragAbgelehnt(),
       AntragInBearbeitung(),
-      VerbindungsfehlerMelden()
+      VerbindungsfehlerMelden(),
+      MitarbeiterPruefen(),
+      HrBenachrichtigen()
    ]
 
    for task in tasks:
