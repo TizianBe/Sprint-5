@@ -5,8 +5,8 @@ class AntragInBearbeitung:
         self.topic = "antragInBearbeitung"
 
     def func(self, task: ExternalTask) -> TaskResult:
-        name = task.get_variable("name")
-        surname = task.get_variable("surname")
+        name = task.get_variable("employee_name")
+        surname = task.get_variable("employee_surname")
         employee_id = task.get_variable("employee_id")
         description = task.get_variable("description")
         cost = task.get_variable("cost")
